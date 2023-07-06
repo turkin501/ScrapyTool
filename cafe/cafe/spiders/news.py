@@ -5,7 +5,7 @@ from scrapy.linkextractors import LinkExtractor
 
 
 
-class NewsSpider(CrawlSpider):
+class NewsSpider(scrapy.Spider):
     name = "news"
     allowed_domains = ["cafef.vn"]
     start_urls = ["https://cafef.vn"]
@@ -16,9 +16,14 @@ class NewsSpider(CrawlSpider):
 
     def parse(self, response):
         # Extracting data from the response
-        for item in response.css("listchungkhoannew"):
+        for item in response.css("div.knswli-right"):
+            link = "https://cafe.vn" + item.css("h3 a::attr(href)").get()
+            title = item.css("h3 a::text").get()
+            tag = item.css("p.time_cate a::text").get()
+            time = item.css("p.time_cate span::attr(title)").get()
             yield {
-                "title": item.css("knswli-right.h3.a.title::text").get(),
-                "type": item.css("time_cate.p.title::text").get(),
-                # "tags": item.css("div.tags a.tag::text").getall(),
+                "link": link,   
+                "title": title,
+                "tag": tag,
+                "time": time,
             }
