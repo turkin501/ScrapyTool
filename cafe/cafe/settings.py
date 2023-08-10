@@ -12,6 +12,8 @@ BOT_NAME = "cafe"
 SPIDER_MODULES = ["cafe.spiders"]
 NEWSPIDER_MODULE = "cafe.spiders"
 
+ELASTICSEARCH_SERVER = ["http://localhost:9200"]
+ELASTICSEARCH_PORT = 9200
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "cafe (+http://www.yourdomain.com)"
